@@ -1,7 +1,14 @@
 void main(){
-	if(analogRead(pb))
+	if(digitalRead(pb))
 		return;
-	// Joystick
+	if(analogRead(jx)>1023-jthreshold )
+		dir = 1;
+	if((analogRead(jy)>1023-jthreshold )
+		dir = 0;
+	if(analogRead(jx)<jthreshold )
+		dir = 3;
+	if((analogRead(jy)<jthreshold )
+		dir = 2;
 	switch(dir){
 		case 0:
 		y++;
