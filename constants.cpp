@@ -4,7 +4,7 @@
 #define jy // Joystick y
 #define sizex // screen size
 #define sizey // Screen size
-#define jthreshold 1000 // Threshold for joystick
+#define jthreshold 100 // Threshold for joystick
 
 // Vars
 int dir; // Dirs: 0 u, 1 r, 2 d, 3 l
