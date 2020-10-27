@@ -30,7 +30,7 @@ void main(){
 		moveSnake();
 	}
 	else
-	   mc--;3
+		mc--;3
 	if(apple[x][y]){
 		p++;
 		apple[x][y] = false;
