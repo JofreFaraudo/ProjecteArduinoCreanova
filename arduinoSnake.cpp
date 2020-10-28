@@ -28,12 +28,12 @@ void main(){
 	if(mc = 0){
 		mc = speed;
 		moveSnake();
+		if(apple[x][y]){
+			p++;
+			apple[x][y] = false;
+			apple[random[sizex]][random[sizey]] = true;
+		}
 	}
 	else
-		mc--;3
-	if(apple[x][y]){
-		p++;
-		apple[x][y] = false;
-		apple[random[sizex]][random[sizey]] = true;
-	}
+		mc--;
 }
