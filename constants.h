@@ -17,4 +17,5 @@ int[sizex][sizey] apple;
 int[] snake; // list array, pendent array dinamic de touples coords
 
 // funtions
-void drawBackground();
+void gameScreen();
+void mainScreen();
