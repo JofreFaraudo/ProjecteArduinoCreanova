@@ -2,10 +2,10 @@
 #define pb // pushbutton pin
 #define jx // Joystic x
 #define jy // Joystick y
-#define sizex // screen size
-#define sizey // Screen size
+#define sizex 30 // screen size
+#define sizey 60 // Screen size
 #define jthreshold 100 // Threshold for joystick
-#define speed // Speed
+#define speed 1000 // Speed
 
 // Vars
 int dir; // Dirs: 0 u, 1 r, 2 d, 3 l
