@@ -27,7 +27,7 @@ void main(){
 	}
 	if(mc = 0){
 		mc = speed;
-		moveSnake();
+		// move snake
 		if(apple[x][y]){
 			p++;
 			apple[x][y] = false;
