@@ -1,4 +1,4 @@
-void mainScreen(){
+void titleScreen(){
   return;
 }
 void gameScreen(){
