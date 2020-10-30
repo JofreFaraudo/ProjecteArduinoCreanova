@@ -15,3 +15,8 @@ int p; // Current points
 int mc; // Speed var auxiliar, counter
 int[sizex][sizey] apple;
 List<int> snakeTail;
+
+// Global auxiliar functions
+int convert(int x, int y, int sx){
+  return y*sx+x;
+}
