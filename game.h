@@ -3,13 +3,13 @@ void main(){
 		playing = false;
 		return
 	}
-	if(analogRead(jx)>1023-jthreshold )
+	if(analogRead(jx) > 1023-jthreshold)
 		dir = 1;
-	if((analogRead(jy)>1023-jthreshold )
+	if(analogRead(jy) > 1023-jthreshold)
 		dir = 0;
-	if(analogRead(jx)<jthreshold )
+	if(analogRead(jx) < jthreshold)
 		dir = 3;
-	if((analogRead(jy)<jthreshold )
+	if(analogRead(jy) < jthreshold)
 		dir = 2;
 	switch(dir){
 		case 0:
