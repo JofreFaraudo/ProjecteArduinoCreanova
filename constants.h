@@ -7,7 +7,7 @@
 #define jthreshold 100 // Threshold for joystick
 #define speed 1000 // Speed
 
-// Vars
+// Global vars
 int dir; // Dirs: 0 u, 1 r, 2 d, 3 l
 int x; // Current pos x
 int y; // current pos y
@@ -15,7 +15,3 @@ int p; // Current points
 int mc; // Speed var auxiliar, counter
 int[sizex][sizey] apple;
 List<int> snakeTail;
-
-// funtions
-void gameScreen();
-void mainScreen();
