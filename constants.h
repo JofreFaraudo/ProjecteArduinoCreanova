@@ -14,7 +14,7 @@ int y; // current pos y
 int p; // Current points
 int mc; // Speed var auxiliar, counter
 int[sizex][sizey] apple;
-int[] snake; // list array, pendent array dinamic de touples coords
+List<int> snakeTail;
 
 // funtions
 void gameScreen();
