@@ -1,2 +1,2 @@
-void mainScreen
-void gameScreen
+void mainScreen();
+void gameScreen();
