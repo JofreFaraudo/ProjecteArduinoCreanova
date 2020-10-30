@@ -16,7 +16,14 @@ int mc; // Speed var auxiliar, counter
 int apple[sizey][sizex];
 List<int> snakeTail;
 
-// Global auxiliar functions
+// Global functions
+int convert(int x, int y, int sx);
+void play();
+void newApple();
+void newApple(int q);
+void gameScreen();
+void titleScreen();
+
 int convert(int x, int y, int sx){
   return y*sx+x;
 }
