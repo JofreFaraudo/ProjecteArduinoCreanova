@@ -18,6 +18,11 @@ void setup()
 // Loop
 void loop()
 {
+	if(digitalRead(pb)) // The push button toggles the game status
+	{
+		// Do some stuff
+	}
+	// Do some other stuff
 }
 
 // Other global functions
