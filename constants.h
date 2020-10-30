@@ -13,7 +13,7 @@ int x; // Current pos x
 int y; // current pos y
 int p; // Current points
 int mc; // Speed var auxiliar, counter
-int[sizex][sizey] apple;
+int apple[sizex][sizey];
 List<int> snakeTail;
 
 // Global auxiliar functions
