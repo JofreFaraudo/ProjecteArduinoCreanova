@@ -23,7 +23,3 @@ void newApple();
 void newApple(int q);
 void gameScreen();
 void titleScreen();
-
-int convert(int x, int y, int sx){
-  return y*sx+x;
-}
