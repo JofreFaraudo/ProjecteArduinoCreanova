@@ -1,2 +1,6 @@
-void mainScreen();
-void gameScreen();
+void mainScreen(){
+  return;
+}
+void gameScreen(){
+  return;
+}
