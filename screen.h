@@ -3,5 +3,7 @@ void titleScreen(){
 }
 void gameScreen(){
   Serial.println("Tu no jugaras mai, jaja es broma xddd");
-  Serial.println(string(playing)+' '+ string(x)+' '+ string(y)+' '+ string(mc)+' '+ string(p));
+  Serial.println("playing: "+string(playing)+", x: "+ string(x)+", y: "+ string(y)+", mc: "+ string(mc)+", pts: "+ string(p)+", apples:");
+  //for(int i = 0; i < sizex*sizey; i++)
+    
 }
