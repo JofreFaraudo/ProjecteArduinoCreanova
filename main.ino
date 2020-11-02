@@ -24,6 +24,12 @@ void loop(){
 		else
 			initGame();
 	}
+	if(playing)
+		titleScreen();
+	else{
+		play();
+		gameScreen();
+	}
 }
 
 // Other global functions
