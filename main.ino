@@ -14,6 +14,7 @@ void setup()
 	pinMode(pb,INPUT_PULLUP);
 	pinMode(jx,INPUT);
 	pinMode(jy,INPUT);
+	Serial.begin(9600)
 }
 
 // Loop
