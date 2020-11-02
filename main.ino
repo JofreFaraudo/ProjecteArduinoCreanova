@@ -9,6 +9,7 @@
 // Setup
 void setup()
 {
+	playing = false;
 	vga.begin();
 	pinMode(pb,INPUT_PULLUP);
 	pinMode(jx,INPUT);
@@ -16,13 +17,13 @@ void setup()
 }
 
 // Loop
-void loop()
-{
-	if(digitalRead(pb)) // The push button toggles the game status
-	{
-		// Do some stuff
+void loop(){
+	if(digitalRead(pb)){
+		if(playing)
+			endGame();
+		else
+			initGame();
 	}
-	// Do some other stuff
 }
 
 // Other global functions
