@@ -9,12 +9,13 @@
 // Setup
 void setup()
 {
-	playing = false;
 	vga.begin();
 	pinMode(pb,INPUT_PULLUP);
 	pinMode(jx,INPUT);
 	pinMode(jy,INPUT);
-	Serial.begin(9600)
+	Serial.begin(9600);
+	playing = false;
+	titleScreen();
 }
 
 // Loop
@@ -26,11 +27,7 @@ void loop(){
 			initGame();
 	}
 	if(playing)
-		titleScreen();
-	else{
 		play();
-		gameScreen();
-	}
 }
 
 // Other global functions
