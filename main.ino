@@ -1,5 +1,10 @@
+// Arduino main library
+#ifndef ARDUINO
+#include <arduino.h>
+#endif
+
 // External libraries
-#include "VGAX.h"
+//#include "VGAX.h"
 #include "ListLib.h"
 // Auxiliar files
 #include "constants.h"
@@ -9,7 +14,7 @@
 // Setup
 void setup()
 {
-	vga.begin();
+	//vga.begin();
 	pinMode(pb,INPUT_PULLUP);
 	pinMode(jx,INPUT);
 	pinMode(jy,INPUT);
@@ -21,17 +26,26 @@ void setup()
 // Loop
 void loop(){
 	if(digitalRead(pb)){
-		if(playing)
-			endGame();
-		else
+		if(!playing)
 			initGame();
+    else //
+      endGame(); //
 	}
-	if(playing)
-		play();
+	/*if(playing)
+		play();*/
+   //Serial.println(digitalRead(pb));
+   Serial.println(playing);
+   delay(d);
 }
 
 // Other global functions
 int convert(int x, int y, int sx)
 {
   return y*sx+x;
+}
+int arrayContains(int a[], int l, int e){
+  for(int i = 0; i < l; a++)
+    if(a[i] == e)
+      return i;
+  return -1;
 }

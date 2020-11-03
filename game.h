@@ -10,8 +10,8 @@ void play()
 		dir = 2;
 	if(mc = 0)
 	{
-		mc = speed;
-		snakeTail.add(convert(y,x,sizex)); // Adding old head pos to the tail
+		mc = s;
+		snakeTail.Add(convert(y,x,sizex)); // Adding old head pos to the tail
 		switch(dir) // Moving the head to the new pos
 		{
 			case 0:
@@ -33,53 +33,54 @@ void play()
 			endGame(); // ...it dies. The game is over.
 			return;
 		}
-		if(apple[y][x]) // If there's an apple, add a new one and update points
+		if(arrayContains(apple, initialApples, convert(y,x,sizex)) != -1) // If there's an apple, add a new one and update points
 		{
 			p++;
-			apple[y][x] = false;
-			newApple();
+			apple[arrayContains(apple, initialApples, convert(y,x,sizex))] = newApple();
 		}else // If there's not, the snake length does not increase. Removing the end of the tail
-			snakeTail.removeLast();
+			snakeTail.RemoveLast();
 		gameScreen(); // Creating graphics
 	}
 	else
 		mc--;
 }
 
-void newApple()
-{
-	newApple(1);
-}
-
-void newApple(int q)
+int newApple()
 {
 	List<int> pc;
-	for(int i = 0; i < sizex*sizey; i++)
-		if(!snakeTail.Contains(i) || i == convert(y,x,sizex) || !apple[i])
-			pc.insert(i);
-	for(; q > 0; q--;)
-	{
-		int g = random[pc.Count()];
-		apple[pc[g]] = true;
-		pc.Remove(g);
-	}
-	delete pc;
+  for(int i = 0; i < sizex*sizey; i++)
+    if(!snakeTail.Contains(i) || i == convert(y,x,sizex) || arrayContains(apple, initialApples, i) != -1)
+      pc.Insert(i);
+  int a = pc[random(pc.Count())];
+  delete &pc[0];
+  return a;
+}
+
+void newApples(int q)
+{
+	while(q > 0)
+  {
+    apple[q] = newApple();
+    q--;
+  }
 }
 
 void endGame()
 {
 	playing = false;
+  titleScreen();
 }
-
 void initGame()
 {
 	playing = true;
 	mc = 0;
-	newApple(initialApples);
+	newApples(initialApples);
 	x = (int)sizex/2;
 	y = (int)sizey/2;
 	dir = 0;
-	snakeTail.Clear();
-	for(int i = 1; i <= initialTailSize; i++)
-		snakeTail.add(convert(y-i,x,sizex));
+  gameScreen();
+	//snakeTail.Clear();
+	//for(int i = 1; i < initialTailSize; i++)
+    //Serial.println(convert(y-i,x,sizex));
+		//snakeTail.Add(convert(y-1,x,sizex));
 }
