@@ -40,6 +40,7 @@ void play()
 			newApple();
 		}else // If there's not, the snake length does not increase. Removing the end of the tail
 			snakeTail.removeLast();
+		gameScreen(); // Creating graphics
 	}
 	else
 		mc--;
