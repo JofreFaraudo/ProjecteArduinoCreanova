@@ -8,7 +8,7 @@
 #define s 1000 // Speed
 #define initialTailSize 3 // The size of the tail when beginning the game
 #define initialApples 4 // Apples when beginning the game
-#define d 200
+#define d 400
 
 // Global vars
 int dir; // Dirs: 0 u, 1 r, 2 d, 3 l
@@ -26,7 +26,6 @@ int convert(int x, int y, int sx);
 int arrayContains(int a[], int l, int e);
 void play();
 int newApple();
-void newApples(int q);
 void gameScreen();
 void titleScreen();
 void endGame();
