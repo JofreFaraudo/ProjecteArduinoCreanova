@@ -1,7 +1,7 @@
 // Constants
 #define pb 10 // pushbutton pin
-#define jx 12 // Joystic x
-#define jy 11 // Joystick y
+#define jx A0 // Joystic x
+#define jy A1 // Joystick y
 #define sizex 30 // screen size x
 #define sizey 60 // Screen size y
 #define jthreshold 100 // Threshold for joystick
@@ -23,7 +23,7 @@ List<int> snakeTail;
 
 // Global functions
 int convert(int x, int y, int sx);
-int arrayContains(int a[], int l, int e);
+//int arrayContains(int &a, int l, int e);
 void play();
 int newApple();
 void gameScreen();

@@ -41,20 +41,20 @@ void loop(){
 int convert(int x, int y, int sx){
   return y*sx+x;
 }
-int arrayContains(int a[], int l, int e){
-  for(int i = 0; i < l; a++)
-    if(a[i] == e)
+/*int arrayContains(int &a, int l, int e){
+  for(int i = 0; i < l; a++){
+    if(a == e)
       return i;
+      i += 1;
+  }
   return -1;
-}
+}*/
 
 void titleScreen(){
   Serial.println("Benvolgut al Snake de l\'ousmane i al Snake d\'en Viviano Espero que gaudeixis del teu Snake, merit de Juffrrenfa, pero idea de\'n Vivano");
 }
 
 void gameScreen(){
-  Serial.print("hola");
-  Serial.println("Tu no jugaras mai, jaja es broma xddd");
   Serial.println("playing: "+String(playing)+", x: "+ String(x)+", y: "+ String(y)+", mc: "+ String(mc)+", pts: "+ String(p)+", apples:");
   for(int i = 0; i < initialApples; i++)
     Serial.print(String(i)+':'+String(apple[i])+' ');
