@@ -1,6 +1,7 @@
 import processing.serial.*;
 import cc.arduino.*;
 import java.util.*;
+import java.util.Arrays;
 
 Arduino arduino;
 PImage pic;
@@ -12,8 +13,8 @@ final static int jy = 0; // Joystick y
 final static int sizex = 20; // screen size x
 final static int sizey = 20; // Screen size y
 final static int jthreshold = 150; // Threshold for joystick
-final static int s = 6; // Speed
-final static int initialTailSize = 10; //3; // The size of the tail when beginning the game
+final static int s = 4; // Speed
+final static int initialTailSize = 3; // The size of the tail when beginning the game
 final static int initialApples = 4; // Apples when beginning the game
 final static int d = 50;
 final static int size = 40;
@@ -43,12 +44,25 @@ void titleScreen(){
    clear();
   image(pic, 0, 0);
 }
+int indexOf(int arr[], int obj){
+  for(int i = 0; i < arr.length; i++)
+    if(i == obj)
+      return i;
+  return -1;
+}
+int newApple(){
+  ArrayList<Integer> t = new ArrayList();
+  for(int i = 0; i < sizex*sizey; i ++)
+    if(!snakeTail.contains(i) && indexOf(apple, i) != -1)
+      t.add(i);
+  return t.get((int)random(t.size()));
+}
 void initGame()
 {
   playing = true;
   mc = 0;
-  /*for(int i = 0; i < initialApples; i++)
-    apple[i]=i;*/
+  for(int i = 0; i < initialApples; i++)
+    apple[i]=newApple();
   x = (int)sizex/2;
   y = (int)sizey/2;
   dir = 0;
@@ -65,8 +79,12 @@ void gameScreen(){
   stroke(color(109, 201, 147));
   fill(0, 135, 56);
   square(x*size+margin, y*size+margin, size);
-  fill(50, 200, 100);
+  fill(20, 240, 170);
   for(Integer j : snakeTail)
+    square(j%sizex*size+margin, (int)(j/sizex)*size+margin, size);
+  fill(250, 50, 50);
+  stroke(253, 10, 10);
+  for(int j : apple)
     square(j%sizex*size+margin, (int)(j/sizex)*size+margin, size);
 }
 void play(){
@@ -101,18 +119,19 @@ void play(){
       x--;
       break;
   }
-      snakeTail.remove(0);
   if(snakeTail.contains(convert(x,y,sizex)) // If the snake collides with iself (head -> tail), ...
     || x < 0 || x >= sizex || y < 0 || y >= sizey)  // If the new pos is not within the game field (if the snakes collides with edges), ...
   {
     endGame(); // ...it dies. The game is over.
     return;
   }
-  /*if(arrayContains(apple, initialApples, convert(y,x,sizex)) != -1) // If there's an apple, add a new one and update points
+  int index = indexOf(apple, convert(x, y, sizex));
+  if(index != -1) // If there's an apple, add a new one and update points
   {
     p++;
-    apple[arrayContains(apple, initialApples, convert(y,x,sizex))] = newApple();
-  }else // If there's not, the snake length does not increase. Removing the end of the tail */
+    apple[index] = newApple();
+  }else // If there's not, the snake length does not increase. Removing the end of the tail
+  snakeTail.remove(0);
   gameScreen(); // Creating graphics
   }else{
     mc++;
@@ -121,7 +140,7 @@ void play(){
 
 void setup()
 {
-  println(Arduino.list());
+  println(Arduino.list().toString());
   arduino = new Arduino(this, Arduino.list()[0], 57600);
   arduino.pinMode(pb, Arduino.INPUT);
   arduino.pinMode(jx, Arduino.INPUT);
@@ -143,5 +162,6 @@ void draw()
   if(playing){
     play();
   }
+  println(p);
    delay(d);
 }
