@@ -4,7 +4,8 @@ import java.util.*;
 import java.util.Arrays;
 
 Arduino arduino;
-PImage pic;
+PImage pic; // Title screen image
+PImage pgo; // Game over screen image
 
 // Constants
 final static int pb = 10; // pushbutton pin
@@ -15,7 +16,7 @@ final static int sizey = 20; // Screen size y
 final static int jthreshold = 150; // Threshold for joystick
 final static int is = 6; // Initial speed
 final static int initialTailSize = 3; // The size of the tail when beginning the game
-final static int initialApples = 200; // Apples when beginning the game
+final static int initialApples = 200; // Num of apples when beginning the game
 final static int sd = 15;
 final static int d = 30;
 final static int size = 40;
@@ -37,13 +38,27 @@ List<Integer> snakeTail = new ArrayList<Integer>();
 int convert(int x, int y, int sx){
   return y*sx+x;
 }
-void endGame()
+void endGame(){
+  endGame(false);
+}
+void endGame(boolean nd)
 {
   playing = false;
-  titleScreen();
+  if(nd)
+  {
+    clear(); // Clearing the game screen
+    // Showing points to player
+    textSize(18);
+    text("Score: "+p, 10, 30);
+    //image(pgo, 0, 0); // Showing the game over image...
+    delay(2000); // for 2 seconds
+  }
+  else
+    delay(50);
+  titleScreen(); // Returning to title
 }
 void titleScreen(){
-   clear();
+  clear();
   image(pic, 0, 0);
 }
 int indexOf(int arr[], int obj){
@@ -55,7 +70,6 @@ int indexOf(int arr[], int obj){
 int newApple(){
   ArrayList<Integer> t = new ArrayList();
   for(int i = 0; i < sizex*sizey; i++){
-    print(i+" ");
     if(!snakeTail.contains(i) && indexOf(apple, i) == -1)
       t.add(i);
   }
@@ -111,7 +125,6 @@ void play(){
     mc = 0;
     dir = tdir;
   snakeTail.add(convert(x,y,sizex)); // Adding old head pos to the tail
- //Serial.println(String(convert(y,x,sizex))+' '+String(x)+' '+String(y));
   switch(dir) // Moving the head to the new pos
   {
     case 0:
@@ -122,7 +135,7 @@ void play(){
       break;
     case 2:
       y--;
-            break;
+      break;
     case 3:
       x--;
       break;
@@ -130,7 +143,7 @@ void play(){
   if(snakeTail.contains(convert(x,y,sizex)) // If the snake collides with iself (head -> tail), ...
     || x < 0 || x >= sizex || y < 0 || y >= sizey)  // If the new pos is not within the game field (if the snakes collides with edges), ...
   {
-    endGame(); // ...it dies. The game is over.
+    endGame(true); // ...it dies. The game is over.
     return;
   }
   int index = indexOf(apple, convert(x, y, sizex));
@@ -157,6 +170,7 @@ void setup()
   playing = false;
   size(900, 900);
   pic = loadImage("title.png");
+  pgo = loadImage("gameover.jpg");
   titleScreen();
 }
 
@@ -171,6 +185,5 @@ void draw()
   if(playing){
     play();
   }
-  println(p);
-   delay(d);
+  delay(d);
 }
