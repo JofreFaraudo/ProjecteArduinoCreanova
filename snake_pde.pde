@@ -13,10 +13,11 @@ final static int jy = 0; // Joystick y
 final static int sizex = 20; // screen size x
 final static int sizey = 20; // Screen size y
 final static int jthreshold = 150; // Threshold for joystick
-final static int s = 4; // Speed
+final static int is = 6; // Initial speed
 final static int initialTailSize = 3; // The size of the tail when beginning the game
-final static int initialApples = 4; // Apples when beginning the game
-final static int d = 50;
+final static int initialApples = 200; // Apples when beginning the game
+final static int sd = 15;
+final static int d = 30;
 final static int size = 40;
 final static int margin = 50;
 
@@ -25,6 +26,7 @@ int dir; // Dirs: 0 u, 1 r, 2 d, 3 l
 int x; // Current pos x
 int y; // current pos y
 int p; // Current points
+int s; // Speed
 int mc; // Speed var auxiliar, counter
 int tdir; // Dir var auxiliar
 boolean playing; // Is the game running?
@@ -46,20 +48,24 @@ void titleScreen(){
 }
 int indexOf(int arr[], int obj){
   for(int i = 0; i < arr.length; i++)
-    if(i == obj)
+    if(arr[i] == obj)
       return i;
   return -1;
 }
 int newApple(){
   ArrayList<Integer> t = new ArrayList();
-  for(int i = 0; i < sizex*sizey; i ++)
-    if(!snakeTail.contains(i) && indexOf(apple, i) != -1)
+  for(int i = 0; i < sizex*sizey; i++){
+    print(i+" ");
+    if(!snakeTail.contains(i) && indexOf(apple, i) == -1)
       t.add(i);
+  }
   return t.get((int)random(t.size()));
 }
 void initGame()
 {
   playing = true;
+  s = is;
+  p = 0;
   mc = 0;
   for(int i = 0; i < initialApples; i++)
     apple[i]=newApple();
@@ -71,7 +77,7 @@ void initGame()
     snakeTail.add(convert(y-1,x,sizex));
 }
 void gameScreen(){
-    clear();
+  clear();
   background(color(150, 150, 150));
   fill(color(10,10,10));
   noStroke();
@@ -99,6 +105,8 @@ void play(){
     if(arduino.analogRead(jy) < jthreshold)
       tdir = 2;
   }
+  if(s < 0)
+    s = 0;
   if(mc > s){
     mc = 0;
     dir = tdir;
@@ -114,7 +122,7 @@ void play(){
       break;
     case 2:
       y--;
-      break;
+            break;
     case 3:
       x--;
       break;
@@ -129,9 +137,10 @@ void play(){
   if(index != -1) // If there's an apple, add a new one and update points
   {
     p++;
+    s = is-int(p/sd);
     apple[index] = newApple();
   }else // If there's not, the snake length does not increase. Removing the end of the tail
-  snakeTail.remove(0);
+    snakeTail.remove(0);
   gameScreen(); // Creating graphics
   }else{
     mc++;
