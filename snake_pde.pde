@@ -170,7 +170,7 @@ void setup()
   playing = false;
   size(900, 900);
   pic = loadImage("title.png");
-  pgo = loadImage("gameover.jpg");
+  pgo = loadImage("gameover.png");
   titleScreen();
 }
 
