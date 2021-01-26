@@ -13,10 +13,10 @@ final static int jx = 1; // Joystic x
 final static int jy = 0; // Joystick y
 final static int sizex = 20; // screen size x
 final static int sizey = 20; // Screen size y
-final static int jthreshold = 150; // Threshold for joystick
+final static int jthreshold = 100; // Threshold for joystick
 final static int is = 6; // Initial speed
 final static int initialTailSize = 3; // The size of the tail when beginning the game
-final static int initialApples = 200; // Num of apples when beginning the game
+final static int initialApples = 330; // Num of apples when beginning the game
 final static int sd = 15;
 final static int d = 30;
 final static int size = 40;
@@ -51,7 +51,7 @@ void endGame(boolean nd)
     textSize(18);
     text("Score: "+p, 10, 30);
     //image(pgo, 0, 0); // Showing the game over image...
-    delay(2000); // for 2 seconds
+    //delay(2000); // for 2 seconds
   }
   else
     delay(50);
@@ -73,7 +73,9 @@ int newApple(){
     if(!snakeTail.contains(i) && indexOf(apple, i) == -1)
       t.add(i);
   }
-  return t.get((int)random(t.size()));
+  if(t.size() > 0)
+    return t.get((int)random(t.size()));
+  return -1;
 }
 void initGame()
 {
@@ -106,6 +108,9 @@ void gameScreen(){
   stroke(253, 10, 10);
   for(int j : apple)
     square(j%sizex*size+margin, (int)(j/sizex)*size+margin, size);
+  textSize(30);
+  fill(61, 51, 51);
+  text("Score: " + p, 300, 40);
 }
 void play(){
   if(dir%2 == 0){
@@ -152,6 +157,8 @@ void play(){
     p++;
     s = is-int(p/sd);
     apple[index] = newApple();
+    if(apple[index] == -1)
+      endGame();
   }else // If there's not, the snake length does not increase. Removing the end of the tail
     snakeTail.remove(0);
   gameScreen(); // Creating graphics
@@ -162,7 +169,6 @@ void play(){
 
 void setup()
 {
-  println(Arduino.list().toString());
   arduino = new Arduino(this, Arduino.list()[0], 57600);
   arduino.pinMode(pb, Arduino.INPUT);
   arduino.pinMode(jx, Arduino.INPUT);
@@ -176,14 +182,19 @@ void setup()
 
 void draw()
 {
-  if(arduino.digitalRead(pb) == 1){
+  /*if(arduino.digitalRead(pb) == 1){
     if(!playing)
       initGame();
     else 
       endGame();
-  }
+  }*/
   if(playing){
     play();
+  }else{
+    if(arduino.digitalRead(pb) == 1){
+      delay(500);
+      initGame();
+    }
   }
   delay(d);
 }
